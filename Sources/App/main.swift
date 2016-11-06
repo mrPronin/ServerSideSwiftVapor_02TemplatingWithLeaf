@@ -24,4 +24,11 @@ drop.get("template4") { request in
     return try drop.view.make("hello3", Node(node: ["users": users]))
 }
 
+drop.get("template5") { request in
+    guard let sayHello = request.data["sayHello"]?.bool else {
+        throw Abort.badRequest
+    }
+    return try drop.view.make("hello4", Node(node: ["sayHello": sayHello.makeNode()]))
+}
+
 drop.run()
